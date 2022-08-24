@@ -1,0 +1,10 @@
+# Project exclude paths
+/bring_it_on/target/
+/hurt_me_plenty/target/
+/i_can_win/target/
+/bring_it_on/.idea/
+/hurt_me_plenty/.idea/
+/i_can_win/.idea/
+.idea
+.iml
+
