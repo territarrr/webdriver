@@ -7,9 +7,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CreatedPaste {
-    private WebDriver driver;
+    private final WebDriver driver;
 
-    @FindBy(xpath = "//div[@class='source']/ol")
+    @FindBy(xpath = "//div[contains(@class,'highlighted-code')]/descendant::a")
     private WebElement resultHighlighting;
 
     @FindBy(xpath = "//textarea[contains(@class,'js-paste-raw')]")
@@ -25,7 +25,7 @@ public class CreatedPaste {
     }
 
     public String getHighlighting() {
-        return resultHighlighting.getAttribute("class");
+        return resultHighlighting.getText();
     }
 
     public String getRawPaste() {

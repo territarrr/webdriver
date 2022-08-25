@@ -16,7 +16,7 @@ import java.util.List;
 public class MainPage {
     private final int WAIT_TIME_IN_SECONDS = 30;
     private static final String HOMEPAGE_URL = "https://pastebin.com";
-    private WebDriver driver;
+    private final WebDriver driver;
 
     @FindBy(xpath = "//textarea[@id='postform-text']")
     private WebElement newText;
@@ -55,9 +55,9 @@ public class MainPage {
         newText.sendKeys(name);
     }
 
-    public void setSelectOption(WebElement select, List<WebElement> selectOptions, String optionValue) {
+    public void setSelectOption(WebElement select, String optionValue) {
         select.click();
-        for (WebElement selectOption : selectOptions) {
+        for (WebElement selectOption : expirationOptions) {
             new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.elementToBeClickable(selectOption));
             if (selectOption.getText().trim().equals(optionValue.trim())) {
                 selectOption.click();
@@ -68,7 +68,7 @@ public class MainPage {
     }
 
     public void enterExpiration(String expiration) {
-        setSelectOption(selectExpiration, expirationOptions, expiration);
+        setSelectOption(selectExpiration, expiration);
     }
 
     public void enterName(String name) {
@@ -77,6 +77,6 @@ public class MainPage {
 
     public void clickCreateNewPasteButton() {
         newPasteButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.invisibilityOf(newPasteButton));
+        new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(CustomCondition.changingURL(driver.getCurrentUrl()));
     }
 }

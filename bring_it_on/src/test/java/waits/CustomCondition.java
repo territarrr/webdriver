@@ -4,8 +4,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 
-import javax.annotation.CheckForNull;
-
 public class CustomCondition {
     public static ExpectedCondition<Boolean> jQueryAJAXsCompleted() {
         return new ExpectedCondition<Boolean>() {

@@ -2,6 +2,7 @@ package test;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,13 +23,15 @@ public class CreateNewPaste {
         mainPage.enterNewText("Hello from WebDriver");
         mainPage.enterExpiration("10 Minutes");
         mainPage.enterName("helloweb");
-//        mainPage.clickCreateNewPasteButton();
+        String oldUrl = driver.getCurrentUrl();
+        mainPage.clickCreateNewPasteButton();
+        Assert.assertNotEquals(oldUrl, driver.getCurrentUrl());
     }
 
     @AfterMethod(alwaysRun = true)
     public void browserTearDown() {
-//        driver.quit();
-//        driver = null;
+        driver.quit();
+        driver = null;
     }
 
 }

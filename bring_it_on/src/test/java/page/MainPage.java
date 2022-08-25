@@ -1,6 +1,5 @@
 package page;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindAll;
@@ -8,36 +7,31 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import waits.CustomCondition;
 
 import java.time.Duration;
 import java.util.List;
 
 public class MainPage {
+    private final int WAIT_TIME_IN_SECONDS = 30;
     private static final String HOMEPAGE_URL = "https://pastebin.com";
-    private WebDriver driver;
+    private final WebDriver driver;
 
     @FindBy(xpath = "//textarea[@id='postform-text']")
     private WebElement newText;
 
-    @FindBy(xpath = "//span[@data-select2-id='1']")
+    @FindBy(xpath = "//select[@id='postform-format']/following::span[1]")
     private WebElement selectHighlighting;
 
-    @FindAll(
-            {
-                    @FindBy(xpath = "//li[@class='select2-results__option']/ul/li")
-            }
-    )
-    private List<WebElement> highlightingOptions;
-
-    @FindBy(xpath = "//span[@data-select2-id='3']")
+    @FindBy(xpath = "//select[@id='postform-expiration']/following::span[1]")
     private WebElement selectExpiration;
 
     @FindAll(
             {
-                    @FindBy(xpath = "//li[@class='select2-results__option']")
+                    @FindBy(xpath = "//li[contains(@class,'select2-results__option')]")
             }
     )
-    private List<WebElement> expirationOptions;
+    private List<WebElement> activeSelect2Options;
 
     @FindBy(xpath = "//input[@id='postform-name']")
     private WebElement pasteName;
@@ -52,7 +46,7 @@ public class MainPage {
 
     public MainPage openPage() {
         driver.get(HOMEPAGE_URL);
-        new WebDriverWait(driver, Duration.ofSeconds(10));
+        new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(CustomCondition.jQueryAJAXsCompleted());
         return this;
     }
 
@@ -60,24 +54,24 @@ public class MainPage {
         newText.sendKeys(name);
     }
 
-    public void setSelectOption(WebElement select, List<WebElement> selectOptions, String optionValue) {
+    public void setSelectOption(WebElement select, String optionValue) {
         select.click();
-        for (WebElement selectOption : selectOptions) {
-            new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(selectOption));
+        for (WebElement selectOption : activeSelect2Options) {
+            new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.elementToBeClickable(selectOption));
             if (selectOption.getText().trim().equals(optionValue.trim())) {
                 selectOption.click();
-                new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.invisibilityOf(selectOption));
+                new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.invisibilityOf(selectOption));
                 break;
             }
         }
     }
 
     public void enterHighlighting(String highlighting) {
-        setSelectOption(selectHighlighting, highlightingOptions, highlighting);
+        setSelectOption(selectHighlighting, highlighting);
     }
 
     public void enterExpiration(String expiration) {
-        setSelectOption(selectExpiration, expirationOptions, expiration);
+        setSelectOption(selectExpiration, expiration);
     }
 
     public void enterName(String name) {
@@ -86,7 +80,7 @@ public class MainPage {
 
     public CreatedPaste clickCreateNewPasteButton() {
         newPasteButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.invisibilityOf(newPasteButton));
+        new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(CustomCondition.changingURL(driver.getCurrentUrl()));
         return new CreatedPaste(driver);
     }
 }
