@@ -99,8 +99,8 @@ public class CalculatorResultTest {
 
     @AfterTest
     public void browserTearDown() {
-//        driver.quit();
-//        driver = null;
+        driver.quit();
+        driver = null;
     }
 
 }
