@@ -14,23 +14,25 @@ import java.time.Duration;
 import java.util.List;
 
 public class SearchResultPage {
+    private final int WAIT_TIME_IN_SECONDS = 30;
     private final WebDriver driver;
 
-    @FindBy(xpath = "//div[@class='gsc-thumbnail-inside']/div[@class='gs-title']/a[@class='gs-title']/b")
+    @FindBy(xpath = "//a[contains(@class,'gs-title')]/b")
     private List<WebElement> searchResults;
 
     public SearchResultPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 60), this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, WAIT_TIME_IN_SECONDS), this);
     }
 
-    public void goToResult(String resultName) {
+    public CalculatorPage goToResult(String resultName) {
         for (WebElement searchResult : searchResults) {
             if (searchResult.getText().equals(resultName)) {
-                new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(searchResult)).click();
+                new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.elementToBeClickable(searchResult)).click();
                 break;
             }
         }
+        return new CalculatorPage(driver);
     }
 
 

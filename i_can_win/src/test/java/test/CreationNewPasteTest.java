@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import page.MainPage;
 
-public class CreateNewPaste {
+public class CreationNewPasteTest {
     private WebDriver driver;
 
     @BeforeMethod (alwaysRun = true)
@@ -17,7 +17,7 @@ public class CreateNewPaste {
     }
 
     @Test
-    public void createNewPate() {
+    public void isNewPateCreated() {
         MainPage mainPage = new MainPage(driver);
         mainPage.openPage();
         mainPage.enterNewText("Hello from WebDriver");

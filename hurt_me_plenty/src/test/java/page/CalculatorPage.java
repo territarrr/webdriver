@@ -13,6 +13,7 @@ import java.util.List;
 
 
 public class CalculatorPage {
+    private final int WAIT_TIME_IN_SECONDS = 30;
     private final WebDriver driver;
 
     @FindBy(xpath = "//section[@id='gc-wrapper']")
@@ -96,7 +97,7 @@ public class CalculatorPage {
 
     public CalculatorPage(WebDriver driver) {
         this.driver = driver;
-        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 30), this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, WAIT_TIME_IN_SECONDS), this);
         driver.switchTo().frame(parentFrame);
         driver.switchTo().frame(frame);
     }
@@ -112,10 +113,10 @@ public class CalculatorPage {
     public void setSelectOption(WebElement select, List<WebElement> selectOptions, String optionValue) {
         select.click();
         for (WebElement selectOption : selectOptions) {
-            new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.elementToBeClickable(selectOption));
+            new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.elementToBeClickable(selectOption));
             if (selectOption.getText().trim().equals(optionValue.trim())) {
                 selectOption.click();
-                new WebDriverWait(driver, Duration.ofSeconds(30)).until(ExpectedConditions.invisibilityOf(selectOption));
+                new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.invisibilityOf(selectOption));
                 break;
             }
         }

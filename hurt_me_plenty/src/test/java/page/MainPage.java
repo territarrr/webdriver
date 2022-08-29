@@ -4,15 +4,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import waits.CustomCondition;
+
+import java.time.Duration;
 
 public class MainPage {
+    private final int WAIT_TIME_IN_SECONDS = 30;
     private static final String HOMEPAGE_URL = "https://cloud.google.com/";
     private final WebDriver driver;
 
-    @FindBy(xpath = "//div[@class='devsite-searchbox']")
+    @FindBy(xpath = "//div[contains(@class,'devsite-searchbox')]")
     private WebElement searchButton;
 
-    @FindBy(xpath = "//div[@class='devsite-searchbox']/input")
+    @FindBy(xpath = "//div[contains(@class,'devsite-searchbox')]/input")
     private WebElement searchInput;
 
 
@@ -21,13 +26,15 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void openPage() {
+    public MainPage openPage() {
         driver.get(HOMEPAGE_URL);
+        return this;
     }
 
-    public void startSearch(String searchText) {
+    public SearchResultPage startSearch(String searchText) {
         searchButton.click();
         searchInput.sendKeys(searchText + "\n");
+        return new SearchResultPage(driver);
     }
 
 }
