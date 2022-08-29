@@ -33,16 +33,13 @@ public class CalculatorResultTest {
     TestValue gpuType;
     TestValue gpuCount;
     CalculatorPage calculatorPage;
-    SearchResultPage searchResultPage;
-
 
     @BeforeTest
     public void driverSetup() {
         driver = new ChromeDriver();
         MainPage mainPage = new MainPage(driver);
         mainPage.openPage();
-        searchResultPage = mainPage.startSearch("Google Cloud Pricing Calculator");
-        calculatorPage = searchResultPage.goToResult("Google Cloud Pricing Calculator");
+        calculatorPage = mainPage.startSearch("Google Cloud Pricing Calculator").goToResult("Google Cloud Pricing Calculator");
         calculatorPage.clickComputeEngineTab();
 
         numberOfInstances = new TestValue("4", "4");
