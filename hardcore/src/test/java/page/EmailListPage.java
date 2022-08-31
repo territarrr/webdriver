@@ -30,9 +30,9 @@ public class EmailListPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void openEmail(){
+    public void openEmail() {
         while (!inboxFrame.isDisplayed()) {
-            new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS));
+            new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.elementToBeClickable(refreshEmailsButton));
             refreshEmailsButton.click();
         }
     }
@@ -40,6 +40,6 @@ public class EmailListPage {
     public String getEstimateEmailCost() {
         driver.switchTo().frame(emailFrame);
         new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.visibilityOf(estimateEmailCost));
-        return estimateEmailCost.getText().substring(estimateEmailCost.getText().indexOf("USD")+3).trim();
+        return estimateEmailCost.getText().substring(estimateEmailCost.getText().indexOf("USD") + new String("USD").length()).trim();
     }
 }

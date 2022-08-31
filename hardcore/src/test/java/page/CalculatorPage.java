@@ -230,11 +230,11 @@ public class CalculatorPage {
         }
     }
 
-    public void setSendEstimateToEmailPopupButtonClick(){
+    public void setSendEstimateToEmailPopupButtonClick() {
         getSendEstimateToEmailPopupButton.click();
     }
 
-    public String getResulltCalculatorEstimateCost(){
-        return calculatorEstimateCost.getText().substring(calculatorEstimateCost.getText().indexOf("USD")+3, calculatorEstimateCost.getText().indexOf("per")).trim();
+    public String getResulltCalculatorEstimateCost() {
+        return calculatorEstimateCost.getText().substring(calculatorEstimateCost.getText().indexOf("USD") + new String("USD").length(), calculatorEstimateCost.getText().indexOf("per")).trim();
     }
 }

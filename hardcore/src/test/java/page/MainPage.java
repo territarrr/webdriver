@@ -9,13 +9,11 @@ public class MainPage {
     private final int WAIT_TIME_IN_SECONDS = 30;
     private static final String HOMEPAGE_URL = "https://cloud.google.com/";
     private final WebDriver driver;
-
     @FindBy(xpath = "//div[contains(@class,'devsite-searchbox')]")
     private WebElement searchButton;
 
     @FindBy(xpath = "//div[contains(@class,'devsite-searchbox')]/input")
     private WebElement searchInput;
-
 
     public MainPage(WebDriver driver) {
         this.driver = driver;

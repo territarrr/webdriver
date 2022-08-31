@@ -14,7 +14,6 @@ import java.util.List;
 public class SearchResultPage {
     private final int WAIT_TIME_IN_SECONDS = 30;
     private final WebDriver driver;
-
     @FindBy(xpath = "//a[contains(@class,'gs-title')]/b")
     private List<WebElement> searchResults;
 
@@ -32,6 +31,4 @@ public class SearchResultPage {
         }
         return new CalculatorPage(driver);
     }
-
-
 }
