@@ -74,7 +74,7 @@ public class CalculatorResultTest {
         calculatorPage.clickButtonAddToEstimte();
         calculatorPage.sendEstimateToEmailButtonClick();
 
-        ((JavascriptExecutor)driver).executeScript("window.open()");
+        ((JavascriptExecutor) driver).executeScript("window.open()");
         tabs = new ArrayList<String>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(1));
 
@@ -100,7 +100,7 @@ public class CalculatorResultTest {
     }
 
 
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void browserTearDown() {
         driver.quit();
         driver = null;

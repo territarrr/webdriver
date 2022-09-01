@@ -20,9 +20,8 @@ import java.time.Duration;
 import java.util.List;
 
 
-public class CalculatorPage {
-    private final int WAIT_TIME_IN_SECONDS = 30;
-    private final WebDriver driver;
+public class CalculatorPage extends  AbstractPage {
+    private static final String PAGE_URL = "https://cloud.google.com/products/calculator";
 
     @FindBy(xpath = "//section[@id='gc-wrapper']")
     private WebElement section;
@@ -119,8 +118,14 @@ public class CalculatorPage {
     @FindBy(xpath = "//md-card-content[@id='resultBlock']/descendant::h2[contains(@class,'md-title')]/b")
     WebElement calculatorEstimateCost;
 
+    @Override
+    protected CalculatorPage openPage() {
+        driver.navigate().to(PAGE_URL);
+        return this;
+    }
+
     public CalculatorPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, WAIT_TIME_IN_SECONDS), this);
         driver.switchTo().frame(parentFrame);
         driver.switchTo().frame(frame);

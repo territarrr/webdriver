@@ -5,10 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class MainPage {
-    private final int WAIT_TIME_IN_SECONDS = 30;
+public class MainPage extends AbstractPage {
     private static final String HOMEPAGE_URL = "https://cloud.google.com/";
-    private final WebDriver driver;
     @FindBy(xpath = "//div[contains(@class,'devsite-searchbox')]")
     private WebElement searchButton;
 
@@ -16,7 +14,7 @@ public class MainPage {
     private WebElement searchInput;
 
     public MainPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

@@ -97,7 +97,7 @@ public class CalculatorResultTest {
         assertEquals(committedUsage.result, calculatorPage.getResultCommitmentTerm());
     }
 
-    @AfterTest
+    @AfterTest(alwaysRun = true)
     public void browserTearDown() {
         driver.quit();
         driver = null;

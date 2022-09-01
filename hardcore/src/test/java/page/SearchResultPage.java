@@ -11,21 +11,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class SearchResultPage {
-    private final int WAIT_TIME_IN_SECONDS = 30;
-    private final WebDriver driver;
+public class SearchResultPage extends AbstractPage{
     @FindBy(xpath = "//a[contains(@class,'gs-title')]/b")
     private List<WebElement> searchResults;
+    @Override
+    protected SearchResultPage openPage() {
+        return this;
+    }
 
     public SearchResultPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, WAIT_TIME_IN_SECONDS), this);
     }
 
     public CalculatorPage goToResult(String resultName) {
         for (WebElement searchResult : searchResults) {
             if (searchResult.getText().equals(resultName)) {
-                new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.elementToBeClickable(searchResult)).click();
+                new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS))
+                        .until(ExpectedConditions.elementToBeClickable(searchResult)).click();
                 break;
             }
         }

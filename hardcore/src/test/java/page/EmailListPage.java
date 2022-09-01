@@ -9,10 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class EmailListPage {
-
-    private final int WAIT_TIME_IN_SECONDS = 30;
-    private final WebDriver driver;
+public class EmailListPage extends AbstractPage{
+    private static final String PAGE_URL = "https://yopmail.com/ru/wm";
     @FindBy(xpath = "//button[@id='refresh']")
     WebElement refreshEmailsButton;
 
@@ -25,8 +23,14 @@ public class EmailListPage {
     @FindBy(xpath = "//div[@id='mail']/descendant::h3[2]")
     WebElement estimateEmailCost;
 
+    @Override
+    protected EmailListPage openPage() {
+        driver.navigate().to(PAGE_URL);
+        return this;
+    }
+
     public EmailListPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 

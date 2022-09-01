@@ -1,5 +1,6 @@
 package page;
 
+import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,10 +10,8 @@ import waits.CustomCondition;
 
 import java.time.Duration;
 
-public class GenerateTmpEmailPage {
-    private final int WAIT_TIME_IN_SECONDS = 30;
+public class GenerateTmpEmailPage extends AbstractPage {
     private static final String HOMEPAGE_URL = "https://yopmail.com/ru/email-generator";
-    private final WebDriver driver;
 
     @FindBy(xpath = "//button[@id='cprnd']")
     WebElement copyEmailButton;
@@ -21,7 +20,7 @@ public class GenerateTmpEmailPage {
     WebElement checkEmailButton;
 
     public GenerateTmpEmailPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
