@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 import page.CreatedPaste;
 import page.MainPage;
 
-public class NewPasteParametersTest {
+public class CreateNewPasteParametersTest {
     private WebDriver driver;
     private String pasteText = "git config --global user.name  \"New Sheriff in Town\"\n" + "git reset $(git commit-tree HEAD^{tree} -m \"Legacy code\")\n" + "git push origin master --force";
     private String pasteName = "how to gain dominance among developers";

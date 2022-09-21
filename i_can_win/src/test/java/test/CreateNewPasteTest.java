@@ -8,7 +8,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import page.MainPage;
 
-public class CreationNewPasteTest {
+public class CreateNewPasteTest {
     private WebDriver driver;
 
     @BeforeMethod (alwaysRun = true)
