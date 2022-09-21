@@ -31,7 +31,7 @@ public class CreatedPaste {
     }
 
     public String getPageTitle() {
-        return driver.getTitle().split("-")[0].trim();
+        return driver.getTitle();
     }
 
     public String getHighlighting() {

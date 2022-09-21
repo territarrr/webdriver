@@ -240,6 +240,6 @@ public class CalculatorPage extends  AbstractPage {
     }
 
     public String getResulltCalculatorEstimateCost() {
-        return calculatorEstimateCost.getText().substring(calculatorEstimateCost.getText().indexOf("USD") + new String("USD").length(), calculatorEstimateCost.getText().indexOf("per")).trim();
+        return calculatorEstimateCost.getText();
     }
 }

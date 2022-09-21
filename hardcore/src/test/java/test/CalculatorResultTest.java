@@ -3,17 +3,16 @@ package test;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.Assert;
 import page.CalculatorPage;
 import page.EmailListPage;
 import page.MainPage;
 import page.GenerateTmpEmailPage;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 public class CalculatorResultTest {
     class TestValue {
@@ -41,7 +40,7 @@ public class CalculatorResultTest {
     GenerateTmpEmailPage generateTmpEmail;
     ArrayList<String> tabs;
 
-    @BeforeTest
+    @BeforeMethod
     public void driverSetup() {
         driver = new ChromeDriver();
         MainPage mainPage = new MainPage(driver);
@@ -88,19 +87,21 @@ public class CalculatorResultTest {
     }
 
     @Test
-    public void compareVmClass() {
+    public void compareEstimateCost() {
         String calculatorEstimateCost = calculatorPage.getResulltCalculatorEstimateCost();
+        calculatorEstimateCost = calculatorEstimateCost.substring(calculatorEstimateCost.indexOf("USD") + new String("USD").length(), calculatorEstimateCost.indexOf("per")).trim();
         String emailEstimateCost;
 
         driver.switchTo().window(tabs.get(1));
         EmailListPage emailListPage = generateTmpEmail.checkEmailButtonClick();
         emailListPage.openEmail();
         emailEstimateCost = emailListPage.getEstimateEmailCost();
-        assertEquals(emailEstimateCost, calculatorEstimateCost);
+        emailEstimateCost = emailEstimateCost.substring(emailEstimateCost.indexOf("USD") + new String("USD").length()).trim();
+        Assert.assertEquals(emailEstimateCost, calculatorEstimateCost);
     }
 
 
-    @AfterTest(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void browserTearDown() {
         driver.quit();
         driver = null;

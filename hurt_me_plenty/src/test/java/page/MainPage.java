@@ -1,5 +1,6 @@
 package page;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,7 +34,8 @@ public class MainPage {
 
     public SearchResultPage startSearch(String searchText) {
         searchButton.click();
-        searchInput.sendKeys(searchText + "\n");
+        searchInput.sendKeys(searchText);
+        searchInput.sendKeys(Keys.RETURN);
         return new SearchResultPage(driver);
     }
 

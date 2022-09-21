@@ -23,7 +23,7 @@ public class CalculatorPage {
     private WebElement parentFrame;
 
     @FindBy(xpath = "//iframe[@id='myFrame']")
-    private WebElement frame;
+    private WebElement childFrame;
 
     @FindBy(xpath = "//md-tab-item/div[@title='Compute Engine']/div")
     private WebElement computeEngineFormTab;
@@ -99,7 +99,7 @@ public class CalculatorPage {
         this.driver = driver;
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, WAIT_TIME_IN_SECONDS), this);
         driver.switchTo().frame(parentFrame);
-        driver.switchTo().frame(frame);
+        driver.switchTo().frame(childFrame);
     }
 
     public void clickComputeEngineTab() {

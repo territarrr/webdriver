@@ -3,12 +3,10 @@ package test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
+import org.testng.Assert;
 import page.CalculatorPage;
 import page.MainPage;
-import page.SearchResultPage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class CalculatorResultTest {
     class TestValue {
@@ -34,7 +32,7 @@ public class CalculatorResultTest {
     TestValue gpuCount;
     CalculatorPage calculatorPage;
 
-    @BeforeTest
+    @BeforeMethod
     public void driverSetup() {
         driver = new ChromeDriver();
         MainPage mainPage = new MainPage(driver);
@@ -69,35 +67,35 @@ public class CalculatorResultTest {
 
     @Test
     public void compareVmClass() {
-        assertEquals(vmClass.result, calculatorPage.getResultVM());
+        Assert.assertEquals(calculatorPage.getResultVM(), vmClass.result);
     }
 
     @Test
     public void compareOs() {
-        assertEquals(os.result, calculatorPage.getResultOS());
+        Assert.assertEquals(calculatorPage.getResultOS(), os.result);
     }
 
     @Test
     public void compareInstanceType() {
-        assertEquals(instanceType.result, calculatorPage.getResultInstanceType());
+        Assert.assertEquals(calculatorPage.getResultInstanceType(), instanceType.result);
     }
 
     @Test
     public void compareRegion() {
-        assertEquals(region.result, calculatorPage.getResultRegion());
+        Assert.assertEquals(calculatorPage.getResultRegion(), region.result);
     }
 
     @Test
     public void compareLocalSSD() {
-        assertEquals(localSSD.result, calculatorPage.getResultLocalSSD());
+        Assert.assertEquals(calculatorPage.getResultLocalSSD(), localSSD.result);
     }
 
     @Test
     public void compareCommittedUsage() {
-        assertEquals(committedUsage.result, calculatorPage.getResultCommitmentTerm());
+        Assert.assertEquals(calculatorPage.getResultCommitmentTerm(), committedUsage.result);
     }
 
-    @AfterTest(alwaysRun = true)
+    @AfterMethod(alwaysRun = true)
     public void browserTearDown() {
         driver.quit();
         driver = null;

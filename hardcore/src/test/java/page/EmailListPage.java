@@ -44,6 +44,6 @@ public class EmailListPage extends AbstractPage{
     public String getEstimateEmailCost() {
         driver.switchTo().frame(emailFrame);
         new WebDriverWait(driver, Duration.ofSeconds(WAIT_TIME_IN_SECONDS)).until(ExpectedConditions.visibilityOf(estimateEmailCost));
-        return estimateEmailCost.getText().substring(estimateEmailCost.getText().indexOf("USD") + new String("USD").length()).trim();
+        return estimateEmailCost.getText();
     }
 }
